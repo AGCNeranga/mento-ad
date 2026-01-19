@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A G C Neranga | Multi-Role Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-black: #050505;
+            --card-gray: #111111;
+            --accent-blue: #00d4ff;
+            --text-white: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --vvip-gradient: linear-gradient(135deg, #00d4ff 0%, #005f73 100%);
+        }
+
+        /* --- GLOBAL & RESPONSIVE --- */
+        /* Anti-Copy Protection */
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; 
+            user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; 
+        }
+        
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-black); color: var(--text-white); width: 100%; overflow-x: hidden; }
+
+        /* --- ROLE TOGGLE --- */
+        .role-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .role-btn {
+            padding: 8px 18px;
+            border: 1px solid var(--glass-border);
+            background: var(--card-gray);
+            color: var(--text-dim);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 12px;
+        }
+        .role-btn.active { background: var(--accent-blue); color: #000; font-weight: 800; }
+
+        /* --- HEADER --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 8%; position: sticky; width: 100%; top: 0; z-index: 1000;
+            background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border);
+        }
+        .logo { font-size: 20px; font-weight: 800; }
+        .logo span { color: var(--accent-blue); }
+        .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 13px; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-blue); }
+
+        /* Status Badge */
+        .availability { background: rgba(0, 255, 127, 0.1); color: #00ff7f; padding: 5px 12px; border-radius: 20px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px; }
+        .dot { width: 8px; height: 8px; background: #00ff7f; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #00ff7f; }
+
+        /* --- HERO --- */
+        .hero { min-height: 80vh; display: flex; align-items: center; padding: 60px 8%; background: radial-gradient(circle at 80% 20%, #002b36 0%, #050505 50%); }
+        .hero-container { display: flex; align-items: center; gap: 40px; width: 100%; flex-wrap: wrap; }
+        .hero-text { flex: 2; min-width: 300px; }
+        .hero-text h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin: 15px 0; }
+        .hero-text h1 span { color: var(--accent-blue); }
+        
+        .btn-group { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
+        .btn-submit { background: var(--accent-blue); color: #000; padding: 12px 30px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; transition: 0.3s; text-decoration: none; text-align: center;}
+        .btn-email { background: transparent; border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 12px 30px; border-radius: 8px; font-weight: 800; text-decoration: none; transition: 0.3s; text-align: center;}
+
+        .profile-img { width: 280px; height: 280px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent-blue); box-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
+
+        /* --- SECTIONS --- */
+        section { padding: 80px 8%; }
+        .section-header { margin-bottom: 40px; border-left: 5px solid var(--accent-blue); padding-left: 20px; }
+        .section-header h2 { font-size: 2rem; }
+
+        /* --- WORK EXPERIENCE WITH COUNTER --- */
+        .exp-container { position: relative; }
+        .exp-container::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 1px; background: var(--glass-border); }
+        .exp-item { position: relative; padding-left: 50px; margin-bottom: 40px; }
+        .exp-dot { position: absolute; left: 13px; top: 8px; width: 14px; height: 14px; background: var(--accent-blue); border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); }
+        .duration-badge { font-size: 11px; background: rgba(0, 212, 255, 0.1); color: var(--accent-blue); padding: 3px 10px; border-radius: 5px; margin-left: 10px; border: 1px solid rgba(0, 212, 255, 0.2); }
+
+        /* --- TECH STACK ICONS --- */
+        .tech-icons { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        .tech-tag { display: flex; align-items: center; gap: 8px; background: #1a1a1a; padding: 8px 15px; border-radius: 8px; border: 1px solid var(--glass-border); font-size: 12px; }
+        .tech-tag i { color: var(--accent-blue); }
+
+        /* --- CONTACT FORM --- */
+        .contact-form { display: grid; gap: 15px; }
+        .contact-form select, .contact-form input, .contact-form textarea {
+            padding: 15px; background: var(--card-gray); border: 1px solid var(--glass-border); color: #fff; border-radius: 8px;
+        }
+
+        /* --- GRID CARDS --- */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .info-card { background: var(--card-gray); border: 1px solid var(--glass-border); padding: 25px; border-radius: 15px; transition: 0.3s; }
+        .info-card:hover { border-color: var(--accent-blue); }
+
+        /* --- IMAGE GALLERY & EVENTS WITH CAPTIONS --- */
+        .img-wrapper { 
+            position: relative; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 2px solid var(--glass-border); 
+            transition: 0.3s; 
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .img-wrapper:hover { border-color: var(--accent-blue); transform: translateY(-5px); }
+
+        /* --- UPDATED CAPTION CSS --- */
+        .img-caption { 
+            position: absolute; bottom: 0; left: 0; width: 100%; 
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95)); /* Darker gradient for visibility */
+            color: var(--accent-blue); padding: 25px 10px 10px; font-size: 11px; 
+            font-weight: 600; text-align: center; 
+            opacity: 1; /* Changed from 0 to 1 to show always */
+            transition: 0.3s; pointer-events: none;
+        }
+        /* No longer need .img-wrapper:hover .img-caption { opacity: 1; } because it's always 1 */
+
+        .image-gallery { display: flex; gap: 20px; width: max-content; animation: scroll 25s linear infinite; padding: 20px 0; }
+        .events-slider { overflow: hidden; position: relative; width: 100%; padding: 20px 0; }
+        .events-track { display: flex; gap: 20px; width: max-content; animation: scroll 25s linear infinite; }
+        
+        .image-gallery:hover, .events-track:hover { animation-play-state: paused; }
+        
+        .gallery-item, .event-img { width: 250px; height: 180px; object-fit: cover; display: block; }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- LIGHTBOX --- */
+        #lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(10px);
+        }
+        #lightbox img { max-width: 90%; max-height: 75%; border-radius: 10px; border: 2px solid var(--accent-blue); }
+        #lightbox-caption { color: var(--accent-blue); margin-top: 15px; font-weight: 600; font-size: 1.1rem; }
+
+        .close-lightbox { position: absolute; top: 30px; right: 40px; font-size: 40px; color: #fff; cursor: pointer; transition: 0.3s; }
+        .close-lightbox:hover { color: var(--accent-blue); }
+
+        /* --- CHATBOT POPUP --- */
+        #chat-bot { 
+            position: fixed; bottom: 100px; right: 30px; width: 280px; 
+            background: var(--card-gray); border: 1px solid var(--accent-blue); 
+            border-radius: 15px; padding: 20px; display: none; z-index: 2000; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+        }
+        .chat-close { position: absolute; top: 10px; right: 15px; cursor: pointer; color: var(--text-dim); font-size: 20px; }
+        .chat-close:hover { color: var(--accent-blue); }
+
+        /* Floating Actions */
+        .action-hub { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 10px; z-index: 1001; }
+        .action-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transition: 0.3s; border: none; }
+        .wa-btn { background: #25D366; }
+        .ai-btn { background: var(--accent-blue); color: #000; }
+        .top-btn { background: #333; display: none; }
+
+        /* --- FOOTER --- */
+        footer { padding: 40px 8%; border-top: 1px solid var(--glass-border); text-align: center; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .footer-socials { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; font-size: 20px; }
+        .footer-socials a { color: var(--text-dim); transition: 0.3s; text-decoration: none; }
+        .footer-socials a:hover { color: var(--accent-blue); transform: translateY(-3px); }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 992px) {
+            section { padding: 60px 5%; }
+            header { padding: 15px 5%; }
+            .hero-container { justify-content: center; text-align: center; }
+            .hero-text { flex: none; width: 100%; }
+            .tech-icons { justify-content: center; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .btn-group { justify-content: center; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div id="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Preview">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <header>
+        <div class="logo"> A G C Neranga<span>.</span></div>
+        <div class="availability"><span class="dot"></span> 🟢 Available for Trainee / Freelance Roles in Data Analysis, QA & Web Development</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Work</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <div class="role-switcher">
+        <button class="role-btn active" onclick="switchRole('all')">View All</button>
+        <button class="role-btn" onclick="switchRole('ba')">Business Analyst</button>
+        <button class="role-btn" onclick="switchRole('da')">Data Analyst</button>
+        <button class="role-btn" onclick="switchRole('dev')">Web Developer</button>
+    </div>
+
+    <section class="hero" id="about">
+        <div class="hero-container">
+            <div class="hero-text">
+                <span style="color: var(--accent-blue); font-weight: 800; letter-spacing: 2px;">HELLO WORLD, I'M</span>
+                <h1><span>Charith Neranga</span></h1>
+                <p id="role-description" style="color: var(--text-dim); font-size: 1rem; max-width: 600px; line-height: 1.6;">
+                    Detail-oriented IT professional with hands on experience in
+                    ERP systems (SAP Business One/S4 HANA), data analysis
+                    and full stack web development. Skilled in optimizing
+                    business operations, improving reporting accuracy and
+                    delivering user centric solutions.Recognized for streamlining
+                    processes, reducing material waste, and enhancing data
+                    driven decision making. Passionate about solving complex
+                    challenges and driving innovation through technology.
+                </p>
+                <div class="tech-icons" id="tech-stack">
+                    <div class="tech-tag"><i class="fas fa-file-excel"></i> Excel</div>
+                    <div class="tech-tag"><i class="fas fa-database"></i> SQL</div>
+                    <div class="tech-tag"><i class="fab fa-react"></i> React</div>
+                    <div class="tech-tag"><i class="fab fa-python"></i> Python</div>
+                    <div class="tech-tag"><i class="fas fa-chart-bar"></i> Power BI</div>
+                    <div class="tech-tag"><i class="fas fa-chart-bar"></i> SAP </div>
+                    <div class="tech-tag"><i class="fas fa-chart-bar"></i> GitHub </div>
+                    <div class="tech-tag"><i class="fas fa-chart-bar"></i> Figma </div>
+                    <div class="tech-tag"><i class="fas fa-chart-bar"></i> Lucidchart </div>
+
+                </div>
+                <div class="btn-group">
+                    <a href="#contact" class="btn-submit">HIRE ME</a>
+                    <a href="mailto:agcharith@gmail.com" class="btn-email"><i class="fas fa-envelope"></i> EMAIL</a>
+                </div>
+            </div>
+            <div class="profile-box">
+                <img src="c3.jpg" alt="Charith" class="profile-img">
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="section-header"><h2>Professional Journey</h2></div>
+        <div class="exp-container">
+            <div class="exp-item role-item da">
+                <div class="exp-dot"></div>
+                <span class="duration-badge" id="sumathi-duration">Calculating...</span>
+                <h3 class="exp-title">Associate Racing Data Analyst</h3>
+                <span class="exp-company">Sumathi Universal | Jun 2025 - Present</span>
+                <p style="color:var(--text-dim); font-size:13px; margin-top:10px;">
+ <b>• Ensured</b> 100% accuracy in UK and Australian sports/racing data through rigorous proofreading and copy editing.<br><br>
+ <b>• Designed</b> custom HTML/JavaScript tools that reduced editing and time conversion tasks by 50%, improving speed and accuracy. <br><br>
+ <b>• Built</b> a UK Race Time WEB APP Converter to process 60–70 pages of data in under 2 minutes, streamlining editorial workflows.<br><br>
+</p>
+            </div>
+
+            <div class="exp-item role-item ba">
+                <div class="exp-dot"></div>
+                <span class="duration-badge" id="wilmar-duration">Calculating...</span>
+                <h3 class="exp-title">Operation Intern (SAP S/4HANA)</h3>
+                <span class="exp-company">Pyramid Wilmar | Jan 2025 - May 2025</span>
+                <p style="color:var(--text-dim); font-size:13px; margin-top:10px;">
+
+ <b>• Optimized</b> weighbridge and delivery board operations using SAP Business One, reducing order processing delays by 20%.<br><br>
+ <b>• Managed</b> outbound deliveries and purchase order reporting in SAP S/4HANA for Upfield division, enhancing logistics efficiency.<br><br>
+ <b>• Conducted</b> scrap reporting analysis in Excel, contributing to a 12% reduction in material wastage.<br><br>
+ <b>• Administered</b> BUSY Accounting Software to streamline the creation of sales orders, invoices, and delivery tracking.<br><br>
+</p>
+            </div>
+
+
+           <div class="exp-item role-item ba">
+    <div class="exp-dot"></div>
+    <span class="duration-badge">8 Months (Completed)</span>
+    <h3 class="exp-title">Research Project Assistant</h3>
+    <span class="exp-company">NIIBS University | May 2024 – Dec 2024</span>
+    <p style="color:var(--text-dim); font-size:13px; margin-top:10px;">
+        <b>• Led</b> a comprehensive data analysis initiative that identified systemic inefficiencies, driving operational improvements across multiple departments.<br><br>
+        <b>• Architected</b> a custom web-based data dashboard using modern frameworks to enhance real-time visualization and stakeholder accessibility.<br><br>
+        <b>• Formulated</b> actionable, data-driven strategies in collaboration with cross-functional leads, improving executive decision-making speed by 15%.<br><br>
+        <b>• Presented</b> high-level technical findings to university boards, directly influencing resource allocation and critical project pivots.
+    </p>
+</div>
+
+<div class="exp-item role-item ba">
+    <div class="exp-dot"></div>
+    <span class="duration-badge">6 Months (Completed)</span>
+    <h3 class="exp-title">Project Analytics Intern</h3>
+    <span class="exp-company">NIIBS University | Dec 2023 – May 2024</span>
+    <p style="color:var(--text-dim); font-size:13px; margin-top:10px;">
+        <b>• Executed</b> rigorous data cleaning and validation protocols to ensure the integrity of research datasets used for university-wide reporting.<br><br>
+        <b>• Optimized</b> data collection workflows by developing automated Excel/SQL trackers, reducing manual entry time by 20%.<br><br>
+        <b>• Supported</b> the research team by drafting visual reports and trend summaries that highlighted key project milestones and anomalies.<br><br>
+        <b>• Collaborated</b> with senior analysts to conduct preliminary statistical audits, ensuring 100% accuracy in data submissions.
+    </p>
+</div>
+
+            <div class="exp-item role-item ba">
+                <div class="exp-dot"></div>
+                <span class="duration-badge">3 years (Working)</span>
+                <h3 class="exp-title">Founder| Artist</h3>
+                <span class="exp-company">mentoartz  | Feb 2023 – Present</span>
+                <p style="color:var(--text-dim); font-size:13px; margin-top:10px;">
+                    <b>• Mentoartz</b> is an online art platform that I founded and managed. While pursuing my studies, I handled this part-time. As a pencil drawing artist,Created and sold my own artworks through the platform. <br><br>
+                 <b>• Managed </b>the online presence, mainly through Instagram, created visual content, interacted with customers, handled all payments and finances and ensured customer satisfaction.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" style="background: rgba(0,212,255,0.02);">
+        <div class="section-header"><h2>Education</h2></div>
+        <div class="cards-grid">
+            <div class="info-card">
+                <span class="duration-badge" style="margin-left:0; margin-bottom:10px; display:inline-block;">2021 - 2025</span>
+                <h4 style="color:var(--accent-blue);">BSc in Information Technology</h4>
+                <p style="font-size:14px; margin-top:5px;">Open University of Sri Lanka (OUSL)</p>
+                <p style="color:var(--text-dim); font-size:12px; margin-top:10px;">Specializing in Information Systems</p>
+            </div>
+            <div class="info-card">
+                <span class="duration-badge" style="margin-left:0; margin-bottom:10px; display:inline-block;">2017 - 2019</span>
+                <h4 style="color:var(--accent-blue);">Diploma in Information Technology</h4>
+                <p style="font-size:14px; margin-top:5px;">Nagananda International Institute for Buddhist Studies, Sri Lanka (NIIBS)</p>
+                <p style="color:var(--text-dim); font-size:12px; margin-top:10px;">Completed with Excellence</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="events">
+        <div class="section-header"><h2>Gallery</h2></div>
+        <div class="events-slider">
+            <div class="events-track">
+                <div class="img-wrapper" onclick="openLightbox('c1.jpeg', 'University IT Seminar Presentation')">
+                    <img src="c1.jpeg" class="event-img">
+                    <div class="img-caption">University IT Seminar Presentation</div>
+                </div>
+                <div class="img-wrapper" onclick="openLightbox('c2.jpeg', 'Industry Networking Event at NIIBS')">
+                    <img src="c2.jpeg" class="event-img">
+                    <div class="img-caption">Industry Networking Event at NIIBS</div>
+                </div>
+                <div class="img-wrapper" onclick="openLightbox('c3.jpeg', 'SAP Business One Training Session')">
+                    <img src="c3.jpeg" class="event-img">
+                    <div class="img-caption">SAP Business One Training Session</div>
+                </div>
+                <div class="img-wrapper" onclick="openLightbox('c4.jpeg', 'Operations Team Workshop')">
+                    <img src="c4.jpeg" class="event-img">
+                    <div class="img-caption">Operations Team Workshop</div>
+                </div>
+                <div class="img-wrapper" onclick="openLightbox('C6.jpeg', 'Annual Tech Symposium Participant')">
+                    <img src="C6.jpeg" class="event-img">
+                    <div class="img-caption">Annual Tech Symposium Participant</div>
+                </div>
+                <div class="img-wrapper" onclick="openLightbox('C7.jpeg', 'Data Visualization Project Showcase')">
+                    <img src="C7.jpeg" class="event-img">
+                    <div class="img-caption">Data Visualization Project Showcase</div>
+                </div>
+                <div class="img-wrapper" onclick="openLightbox('c1.jpeg', 'University IT Seminar Presentation')">
+                    <img src="c1.jpeg" class="event-img">
+                    <div class="img-caption">University IT Seminar Presentation</div>
+                </div>
+                <div class="img-wrapper" onclick="openLightbox('c2.jpeg', 'Industry Networking Event at NIIBS')">
+                    <img src="c2.jpeg" class="event-img">
+                    <div class="img-caption">Industry Networking Event at NIIBS</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="section-header"><h2>Projects</h2></div>
+        <div class="image-gallery">
+            <div class="img-wrapper" onclick="openLightbox('p1.png', 'Custom ERP Data Dashboard Interface')">
+                <img src="p1.png" alt="Gallery Image 1" class="gallery-item">
+                <div class="img-caption">Custom ERP Data Dashboard Interface</div>
+            </div>
+            <div class="img-wrapper" onclick="openLightbox('l1.png', 'UK Race Time WEB APP Converter')">
+                <img src="l1.png" alt="Gallery Image 2" class="gallery-item">
+                <div class="img-caption">UK Race Time WEB APP Converter</div>
+            </div>
+            <div class="img-wrapper" onclick="openLightbox('l2.png', 'Business Process Automation Flow')">
+                <img src="l2.png" alt="Gallery Image 3" class="gallery-item">
+                <div class="img-caption">Business Process Automation Flow</div>
+            </div>
+            <div class="img-wrapper" onclick="openLightbox('l3.png', 'Power BI Sales Performance Analytics')">
+                <img src="l3.png" alt="Gallery Image 4" class="gallery-item">
+                <div class="img-caption">Power BI Sales Performance Analytics</div>
+            </div>
+            <div class="img-wrapper" onclick="openLightbox('l4.png', 'Inventory Management UI Concept')">
+                <img src="l4.png" alt="Gallery Image 5" class="gallery-item">
+                <div class="img-caption">Inventory Management UI Concept</div>
+            </div>
+            <div class="img-wrapper" onclick="openLightbox('p2.png', 'Financial Data Visualization Tool')">
+                <img src="p2.png" alt="Gallery Image 7" class="gallery-item">
+                <div class="img-caption">Financial Data Visualization Tool</div>
+            </div>
+            <div class="img-wrapper" onclick="openLightbox('p1.png', 'Custom ERP Data Dashboard Interface')">
+                <img src="p1.png" class="gallery-item">
+                <div class="img-caption">Custom ERP Data Dashboard Interface</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reference">
+        <div class="section-header"><h2>Professional References</h2></div>
+        <div class="cards-grid">
+            <div class="info-card">
+                <h4 style="color:var(--accent-blue);">Prof. Rangamini Werawatta</h4>
+                <p style="font-size:13px; color:var(--text-white);">Executive Director</p>
+                <p style="color:var(--text-dim); font-size:12px;">Asia Institute for Advanced Studies</p>
+                <p style="color:var(--accent-blue); font-size:12px; margin-top:8px;"><i class="fas fa-envelope"></i> rwerawatta@gmail.com</p>
+            </div>
+            <div class="info-card">
+                <h4 style="color:var(--accent-blue);">Natalie de Niese</h4>
+                <p style="font-size:13px; color:var(--text-white);">Industry Placements and Partnerships Manager</p>
+                <p style="color:var(--text-dim); font-size:12px;">Career Success Australia</p>
+                <p style="color:var(--accent-blue); font-size:12px; margin-top:8px;"><i class="fas fa-envelope"></i> ndeniese@gmail.com</p>
+            </div>
+            <div class="info-card">
+                <h4 style="color:var(--accent-blue);">Dilumi Vidanage</h4>
+                <p style="font-size:13px; color:var(--text-white);">Functional ERP Consultant</p>
+                <p style="color:var(--text-dim); font-size:12px;"> Alliant Rigserv</p>
+                <p style="color:var(--accent-blue); font-size:12px; margin-top:8px;"><i class="fas fa-envelope"></i> dilumividanage1@gmail.com</p>
+            </div>
+        </div>
+    </section>
+
+    
+<section id="risks">
+    <div class="section-header"><h2>Interactive BA Risk Log</h2></div>
+    <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse: collapse; background: var(--card-gray); font-size:13px;">
+            <tr style="border-bottom: 1px solid var(--accent-blue); color: var(--accent-blue);">
+                <th style="padding:15px; text-align:left;">Risk ID</th>
+                <th style="padding:15px; text-align:left;">Risk Scenario</th>
+                <th style="padding:15px; text-align:left;">Category</th>
+                <th style="padding:15px; text-align:left;">Impact</th>
+                <th style="padding:15px; text-align:left;">Probability</th>
+                <th style="padding:15px; text-align:left;">Risk Owner</th>
+                <th style="padding:15px; text-align:left;">Mitigation</th>
+                <th style="padding:15px; text-align:left;">Status</th>
+            </tr>
+            <tr>
+                <td style="padding:15px;">R-001</td>
+                <td style="padding:15px;">Data Source Delay</td>
+                <td style="padding:15px;">Technical</td>
+                <td style="padding:15px;"><span style="color:red;">High</span></td>
+                <td style="padding:15px;">Medium</td>
+                <td style="padding:15px;">Data Team</td>
+                <td style="padding:15px;">Automated failover scripts</td>
+                <td style="padding:15px;">Open</td>
+            </tr>
+            <tr style="background: rgba(255,255,255,0.02);">
+                <td style="padding:15px;">R-002</td>
+                <td style="padding:15px;">Scope Creep</td>
+                <td style="padding:15px;">Business</td>
+                <td style="padding:15px;"><span style="color:orange;">Medium</span></td>
+                <td style="padding:15px;">High</td>
+                <td style="padding:15px;">Project Manager</td>
+                <td style="padding:15px;">Strict BRD sign-off process</td>
+                <td style="padding:15px;">In Progress</td>
+            </tr>
+            <tr>
+                <td style="padding:15px;">R-003</td>
+                <td style="padding:15px;">Stakeholder Feedback Delay</td>
+                <td style="padding:15px;">Business</td>
+                <td style="padding:15px;"><span style="color:orange;">Medium</span></td>
+                <td style="padding:15px;">Medium</td>
+                <td style="padding:15px;">BA Team</td>
+                <td style="padding:15px;">Weekly review cadence & escalation</td>
+                <td style="padding:15px;">Open</td>
+            </tr>
+            <tr style="background: rgba(255,255,255,0.02);">
+                <td style="padding:15px;">R-004</td>
+                <td style="padding:15px;">Integration Failure with API</td>
+                <td style="padding:15px;">Technical</td>
+                <td style="padding:15px;"><span style="color:red;">High</span></td>
+                <td style="padding:15px;">Medium</td>
+                <td style="padding:15px;">Tech Lead</td>
+                <td style="padding:15px;">Mock services & rollback plan</td>
+                <td style="padding:15px;">Open</td>
+            </tr>
+            <tr>
+                <td style="padding:15px;">R-005</td>
+                <td style="padding:15px;">User Resistance to New System</td>
+                <td style="padding:15px;">Operational</td>
+                <td style="padding:15px;"><span style="color:orange;">Medium</span></td>
+                <td style="padding:15px;">Low</td>
+                <td style="padding:15px;">Training Team</td>
+                <td style="padding:15px;">UAT sessions & training materials</td>
+                <td style="padding:15px;">Open</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+
+
+
+    <section id="contact">
+        <div class="section-header"><h2>Get in Touch</h2></div>
+        <form class="contact-form" action="https://formspree.io/f/xwvvvrbw" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <select name="purpose">
+                <option value="data">Data Analysis Project</option>
+                <option value="web">Web Tool Development</option>
+                <option value="automation">Report Automation</option>
+                <option value="hire">Hiring Inquiry</option>
+            </select>
+            <textarea name="message" rows="5" placeholder="How can I help you today?"></textarea>
+            <button type="submit" class="btn-submit">SUBMIT REQUEST</button>
+        </form>
+    </section>
+
+    <section id="proof" style="background: rgba(255,255,255,0.01);">
+        <div class="section-header"><h2>Impacts</h2></div>
+        <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="info-card" style="text-align:center;">
+                <h2 style="color:var(--accent-blue); font-size: 3rem;">50%</h2>
+                <p>Task Time Reduction</p>
+            </div>
+            <div class="info-card" style="text-align:center;">
+                <h2 style="color:var(--accent-blue); font-size: 3rem;">20+</h2>
+                <p>Automated Reporting & Dashboards</p>
+            </div>
+            <div class="info-card" style="text-align:center;">
+                <h2 style="color:var(--accent-blue); font-size: 3rem;">12%</h2>
+                <p>Operational Efficiency Improvement</p>
+            </div>
+            <div class="info-card" style="text-align:center;">
+                <h2 style="color:var(--accent-blue); font-size: 3rem;">100%</h2>
+                <p>Data Accuracy & Quality Assurance</p>
+            </div>
+            <div class="info-card" style="text-align:center;">
+                <h2 style="color:var(--accent-blue); font-size: 3rem;">15%</h2>
+                <p>Data-Driven Decision Support</p>
+            </div>
+        </div>
+    </section>
+
+<footer style="text-align: center; padding: 50px 0; background: rgba(0,0,0,0.2); border-radius: 20px 20px 0 0;">
+    <p style="color: var(--text-white); font-size: 12px; margin-bottom: 5px; opacity: 0.6;">READY TO BUILD SOMETHING GREAT?</p>
+    <h2 style="color: var(--accent-blue); margin-top: 0; font-size: 24px; font-weight: 800;">Let's Connect.</h2>
+
+    <div style="margin: 20px 0;">
+        <a href="https://github.com/AGCNeranga" style="color: var(--text-white); text-decoration: none; margin: 0 15px;"><i class="fab fa-github"></i></a>
+
+        <a href="https://agcharith.medium.com/" style="color: var(--text-white); text-decoration: none; margin: 0 15px;"><i class="fab fa-medium"></i></a>
+
+        <a href="http://www.linkedin.com/in/charith-neranga" style="color: var(--text-white); text-decoration: none; margin: 0 15px;"><i class="fab fa-linkedin"></i></a>        
+        <a href="https://www.threads.com/@charith_neranga?igshid=NTc4MTIwNjQ2YQ==" style="color: var(--text-white); text-decoration: none; margin: 0 15px;"><i class="fab fa-threads"></i></a>
+    </div>
+
+    <hr style="width: 50px; border: 1px solid var(--accent-blue); margin: 25px auto;">
+
+    <p style="color: var(--text-white); font-weight: 600; font-size: 13px;">CHARITH NERANGA <span style="color: var(--accent-blue);">/</span> DEVELOPER</p>
+    <p style="color: var(--text-dim); font-size: 10px; margin-top: 5px;">© 2026 ALL RIGHTS RESERVED • V9.0</p>
+</footer>
+
+
+    <div class="action-hub">
+        <button id="backToTop" class="action-btn top-btn" onclick="window.scrollTo(0,0)"><i class="fas fa-chevron-up"></i></button>
+        <div id="chat-bot">
+            <span class="chat-close" onclick="toggleChat()">&times;</span>
+            <p style="font-size:13px; margin-bottom:15px; padding-right: 20px;"><b>Charith AI Assistant:</b><br>Ask me about my experience or current availability.</p>
+            <button class="role-btn" style="width:100%; margin-bottom:8px;" onclick="alert('I am currently available for new projects!')">Availability?</button>
+            <button class="role-btn" style="width:100%;" onclick="alert('I have 3+ years experience in Data & IT.')">Experience?</button>
+        </div>
+        <button class="action-btn ai-btn" onclick="toggleChat()"><i class="fas fa-robot"></i></button>
+        <a href="https://wa.me/94716477472" target="_blank" class="action-btn wa-btn"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <script>
+        // --- SECURITY LAYERS ---
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { return false; }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+        };
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 1. AUTO WORK DURATION COUNTERS
+        function calculateDuration() {
+            const now = new Date();
+            const start1 = new Date('2025-06-01');
+            let months1 = (now.getFullYear() - start1.getFullYear()) * 12 + (now.getMonth() - start1.getMonth());
+            document.getElementById('sumathi-duration').innerText = months1 + " Months (Working Now)";
+
+            const start2 = new Date('2025-01-01');
+            const end2 = new Date('2025-05-30');
+            let diff = (end2.getFullYear() - start2.getFullYear()) * 12 + (end2.getMonth() - start2.getMonth());
+            document.getElementById('wilmar-duration').innerText = diff + " Months (Completed)";
+        }
+        calculateDuration();
+
+        // 2. ROLE SWITCHER
+        function switchRole(role) {
+            const desc = document.getElementById('role-description');
+            const stack = document.getElementById('tech-stack');
+            const btns = document.querySelectorAll('.role-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            if(event && event.target.classList.contains('role-btn')) event.target.classList.add('active');
+
+            let iconsHtml = "";
+            if(role === 'ba') {
+                desc.innerText = "Business Analyst specializing in ERP optimizations (SAP S/4HANA) and streamlining operational workflows.";
+                iconsHtml = `<div class="tech-tag"><i class="fas fa-chart-line"></i> SAP S/4HANA</div><div class="tech-tag"><i class="fas fa-file-excel"></i> Excel VBA</div>`;
+            } else if(role === 'da') {
+                desc.innerText = "Data Analyst focused on processing large datasets and Power BI visualization.";
+                iconsHtml = `<div class="tech-tag"><i class="fas fa-database"></i> SQL Server</div><div class="tech-tag"><i class="fas fa-chart-bar"></i> Power BI</div>`;
+            } else if(role === 'dev') {
+                desc.innerText = "Full Stack Developer building responsive web applications with React.js and modern UI.";
+                iconsHtml = `<div class="tech-tag"><i class="fab fa-react"></i> React.js</div><div class="tech-tag"><i class="fab fa-js"></i> JavaScript</div>`;
+            } else {
+                desc.innerText = "Detail-oriented IT professional with hands on experience in ERP systems (SAP Business One/S4 HANA), data analysis and full stack web development.";
+                iconsHtml = `<div class="tech-tag"><i class="fas fa-file-excel"></i> Excel</div><div class="tech-tag"><i class="fas fa-database"></i> SQL</div><div class="tech-tag"><i class="fab fa-react"></i> React</div>`;
+            }
+            stack.innerHTML = iconsHtml;
+        }
+
+        // 3. CHATBOT TOGGLE
+        function toggleChat() {
+            const bot = document.getElementById('chat-bot');
+            bot.style.display = bot.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // 4. LIGHTBOX LOGIC WITH CAPTION
+        function openLightbox(src, caption) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').innerText = caption;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // 5. SCROLL TO TOP LOGIC
+        window.onscroll = function() {
+            const topBtn = document.getElementById("backToTop");
+            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+                topBtn.style.display = "flex";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+
+        // 6. INTERSECTION OBSERVER ANIMATIONS
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section, .info-card, .img-wrapper').forEach(el => {
+            el.style.opacity = "0"; el.style.transform = "translateY(20px)"; el.style.transition = "0.6s ease-out";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
